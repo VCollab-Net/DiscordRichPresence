@@ -1,43 +1,42 @@
-﻿using DiscordRPC.Converters;
-using System;
-using System.Runtime.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace DiscordRPC.RPC.Payload
 {
     /// <summary>
     /// See https://discordapp.com/developers/docs/topics/rpc#rpc-server-payloads-rpc-events for documentation
     /// </summary>
+    [JsonConverter(typeof(JsonStringEnumConverter<ServerEvent>))]
     internal enum ServerEvent
 	{
 
 		/// <summary>
 		/// Sent when the server is ready to accept messages
 		/// </summary>
-		[EnumValue("READY")]
+		[JsonStringEnumMemberName("READY")]
 		Ready,
 
 		/// <summary>
 		/// Sent when something bad has happened
 		/// </summary>
-		[EnumValue("ERROR")]
+		[JsonStringEnumMemberName("ERROR")]
 		Error,
 
 		/// <summary>
-		/// Join Event 
+		/// Join Event
 		/// </summary>
-		[EnumValue("ACTIVITY_JOIN")]
+		[JsonStringEnumMemberName("ACTIVITY_JOIN")]
 		ActivityJoin,
 
 		/// <summary>
 		/// Spectate Event
 		/// </summary>
-		[EnumValue("ACTIVITY_SPECTATE")]
+		[JsonStringEnumMemberName("ACTIVITY_SPECTATE")]
 		ActivitySpectate,
 
 		/// <summary>
 		/// Request Event
 		/// </summary>
-		[EnumValue("ACTIVITY_JOIN_REQUEST")]
+		[JsonStringEnumMemberName("ACTIVITY_JOIN_REQUEST")]
 		ActivityJoinRequest,
 
 #if INCLUDE_FULL_RPC

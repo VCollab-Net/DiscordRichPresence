@@ -1,9 +1,4 @@
-﻿using DiscordRPC.Exceptions;
-using DiscordRPC.Helper;
-using Newtonsoft.Json;
-using System;
-
-namespace DiscordRPC
+﻿namespace DiscordRPC
 {
 	/// <summary>
 	/// Rich Presence activity type

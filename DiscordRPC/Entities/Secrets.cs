@@ -1,7 +1,7 @@
 ﻿using DiscordRPC.Exceptions;
-using Newtonsoft.Json;
 using System;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace DiscordRPC
 {
@@ -15,7 +15,7 @@ namespace DiscordRPC
 	public class Secrets
 	{
 		/// <summary>
-		/// The unique match code to distinguish different games/lobbies. Use <see cref="Secrets.CreateSecret(Random)"/> to get an appropriately sized secret. 
+		/// The unique match code to distinguish different games/lobbies. Use <see cref="Secrets.CreateSecret(Random)"/> to get an appropriately sized secret.
 		/// <para>This cannot be null and must be supplied for the  Join / Spectate feature to work.</para>
 		/// <para>Max Length of 128 characters</para>
 		/// </summary>
@@ -25,12 +25,13 @@ namespace DiscordRPC
 
 		/// <summary>
 		/// The secret data that will tell the client how to connect to the game to play. This could be a unique identifier for a fancy match maker or player id, lobby id, etc.
-		/// <para>It is recommended to encrypt this information so its hard for people to replicate it. 
+		/// <para>It is recommended to encrypt this information so its hard for people to replicate it.
 		/// Do <b>NOT</b> just use the IP address in this. That is a bad practice and can leave your players vulnerable!
 		/// </para>
 		/// <para>Max Length of 128 characters</para>
 		/// </summary>
-		[JsonProperty("join", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonPropertyName("join")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public string Join
 		{
 			get => _joinSecret;
@@ -54,7 +55,7 @@ namespace DiscordRPC
 
 		/// <summary>
 		/// The secret data that will tell the client how to connect to the game to spectate. This could be a unique identifier for a fancy match maker or player id, lobby id, etc.
-		/// <para>It is recommended to encrypt this information so its hard for people to replicate it. 
+		/// <para>It is recommended to encrypt this information so its hard for people to replicate it.
 		/// Do <b>NOT</b> just use the IP address in this. That is a bad practice and can leave your players vulnerable!
 		/// </para>
 		/// <para>Max Length of 128 characters</para>

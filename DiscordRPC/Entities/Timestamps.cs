@@ -1,6 +1,5 @@
-﻿using DiscordRPC.Exceptions;
-using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace DiscordRPC
 {
@@ -79,7 +78,8 @@ namespace DiscordRPC
 		/// <summary>
 		/// Converts between DateTime and Milliseconds to give the Unix Epoch Time for the <see cref="Timestamps.Start"/>.
 		/// </summary>
-		[JsonProperty("start", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonPropertyName("start")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public ulong? StartUnixMilliseconds
 		{
 			get
@@ -98,7 +98,8 @@ namespace DiscordRPC
 		/// Converts between DateTime and Milliseconds to give the Unix Epoch Time  for the <see cref="Timestamps.End"/>.
 		/// <seealso cref="End"/>
 		/// </summary>
-		[JsonProperty("end", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonPropertyName("end")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public ulong? EndUnixMilliseconds
 		{
 			get

@@ -1,8 +1,4 @@
-﻿using DiscordRPC.Exceptions;
-using Newtonsoft.Json;
-using System;
-
-namespace DiscordRPC
+﻿namespace DiscordRPC
 {
 	/// <summary>
 	/// Rich Presence Display type

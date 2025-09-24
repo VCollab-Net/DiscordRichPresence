@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 using DiscordRPC.RPC.Payload;
-using Newtonsoft.Json;
 
 namespace DiscordRPC.RPC.Commands
 {
@@ -12,7 +8,7 @@ namespace DiscordRPC.RPC.Commands
 		/// <summary>
 		/// The user ID that we are accepting / rejecting
 		/// </summary>
-		[JsonProperty("user_id")]
+		[JsonPropertyName("user_id")]
 		public string UserID { get; set; }
 
 		/// <summary>

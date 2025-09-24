@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace DiscordRPC.IO
 {
@@ -31,7 +29,7 @@ namespace DiscordRPC.IO
 		/// The data in the frame
 		/// </summary>
 		public byte[] Data { get; set; }
-		
+
 		/// <summary>
 		/// The data represented as a string.
 		/// </summary>
@@ -40,7 +38,7 @@ namespace DiscordRPC.IO
 			get { return GetMessage(); }
 			set { SetMessage(value); }
 		}
-		
+
 		/// <summary>
 		/// Creates a new pipe frame instance
 		/// </summary>
@@ -79,7 +77,7 @@ namespace DiscordRPC.IO
 		/// <param name="obj"></param>
 		public void SetObject(object obj)
 		{
-			string json = JsonConvert.SerializeObject(obj);
+			string json = JsonSerializer.Serialize(obj);
 			SetMessage(json);
 		}
 
@@ -102,7 +100,7 @@ namespace DiscordRPC.IO
 		public T GetObject<T>()
 		{
 			string json = GetMessage();
-			return JsonConvert.DeserializeObject<T>(json);
+			return JsonSerializer.Deserialize<T>(json);
 		}
 
 		/// <summary>
@@ -180,7 +178,7 @@ namespace DiscordRPC.IO
 
             value = BitConverter.ToUInt32(bytes, 0);
 			return true;
-		}   
+		}
 
 		/// <summary>
 		/// Writes the frame into the target frame as one big byte block.

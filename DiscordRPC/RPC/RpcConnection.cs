@@ -5,8 +5,8 @@ using DiscordRPC.RPC.Commands;
 using DiscordRPC.RPC.Payload;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading;
-using Newtonsoft.Json;
 using DiscordRPC.Logging;
 using DiscordRPC.Events;
 
@@ -89,7 +89,7 @@ namespace DiscordRPC.RPC
 		public bool IsRunning { get { return thread != null; } }
 
 		/// <summary>
-		/// Forces the <see cref="Close"/> to call <see cref="Shutdown"/> instead, safely saying goodbye to Discord. 
+		/// Forces the <see cref="Close"/> to call <see cref="Shutdown"/> instead, safely saying goodbye to Discord.
 		/// <para>This option helps prevents ghosting in applications where the Process ID is a host and the game is executed within the host (ie: the Unity3D editor). This will tell Discord that we have no presence and we are closing the connection manually, instead of waiting for the process to terminate.</para>
 		/// </summary>
 		public bool ShutdownOnly { get; set; }
@@ -244,7 +244,7 @@ namespace DiscordRPC.RPC
 		}
 
 		/// <summary>
-		/// Dequeues all messages from the event stack. 
+		/// Dequeues all messages from the event stack.
 		/// </summary>
 		/// <returns></returns>
 		internal IMessage[] DequeueMessages()
@@ -539,10 +539,6 @@ namespace DiscordRPC.RPC
 					case Command.Unsubscribe:
 					case Command.Subscribe:
 
-						//Prepare a serializer that can account for snake_case enums.
-						JsonSerializer serializer = new JsonSerializer();
-						serializer.Converters.Add(new Converters.EnumSnakeCaseConverter());
-
 						//Go through the data, looking for the evt property, casting it to a server event
 						var evt = response.GetObject<EventPayload>().Event.Value;
 
@@ -701,7 +697,7 @@ namespace DiscordRPC.RPC
 		#region Connection
 
 		/// <summary>
-		/// Establishes the handshake with the server. 
+		/// Establishes the handshake with the server.
 		/// </summary>
 		/// <returns></returns>
 		private void EstablishHandshake()
@@ -804,7 +800,7 @@ namespace DiscordRPC.RPC
 		}
 
 		/// <summary>
-		/// Closes the connection and disposes of resources. This will not force termination, but instead allow Discord disconnect us after we say goodbye. 
+		/// Closes the connection and disposes of resources. This will not force termination, but instead allow Discord disconnect us after we say goodbye.
 		/// <para>This option helps prevents ghosting in applications where the Process ID is a host and the game is executed within the host (ie: the Unity3D editor). This will tell Discord that we have no presence and we are closing the connection manually, instead of waiting for the process to terminate.</para>
 		/// </summary>
 		public void Shutdown()

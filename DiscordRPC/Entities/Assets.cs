@@ -1,7 +1,6 @@
 ﻿using DiscordRPC.Exceptions;
-using DiscordRPC.Helper;
-using Newtonsoft.Json;
 using System;
+using System.Text.Json.Serialization;
 
 namespace DiscordRPC
 {
@@ -19,7 +18,8 @@ namespace DiscordRPC
 		/// <para>Max 256 characters.</para>
 		/// </summary>
 		/// <remarks>Allows URL to directly link to images.</remarks>
-		[JsonProperty("large_image", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonPropertyName("large_image")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public string LargeImageKey
 		{
 			get { return _largeimagekey; }
@@ -38,7 +38,8 @@ namespace DiscordRPC
 		/// The tooltip for the large square image. For example, "Summoners Rift" or "Horizon Lunar Colony".
 		/// <para>Max 128 characters.</para>
 		/// </summary>
-		[JsonProperty("large_text", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("large_text")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public string LargeImageText
 		{
 			get { return _largeimagetext; }
@@ -54,7 +55,8 @@ namespace DiscordRPC
 		/// URL that is linked to when clicking on the large image in the activity card.
 		/// <para>Max 256 characters.</para>
 		/// </summary>
-		[JsonProperty("large_url", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonPropertyName("large_url")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public string LargeImageUrl
 		{
 			get { return _largeimageurl; }
@@ -88,7 +90,8 @@ namespace DiscordRPC
 		/// <para>Max 256 characters.</para>
 		/// </summary>
 		/// <remarks>Allows URL to directly link to images.</remarks>
-		[JsonProperty("small_image", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonPropertyName("small_image")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public string SmallImageKey
 		{
 			get { return _smallimagekey; }
@@ -107,7 +110,8 @@ namespace DiscordRPC
 		/// The tooltip for the small circle image. For example, "LvL 6" or "Ultimate 85%".
 		/// <para>Max 128 characters.</para>
 		/// </summary>
-		[JsonProperty("small_text", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonPropertyName("small_text")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public string SmallImageText
 		{
 			get { return _smallimagetext; }
@@ -123,7 +127,8 @@ namespace DiscordRPC
 		/// URL that is linked to when clicking on the small image in the activity card.
 		/// <para>Max 256 characters.</para>
 		/// </summary>
-		[JsonProperty("small_url", NullValueHandling = NullValueHandling.Ignore)]
+		[JsonPropertyName("small_url")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 		public string SmallImageUrl
 		{
 			get { return _smallimageurl; }

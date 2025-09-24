@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TargetFrameworks>net9.0;netstandard2.0;net45</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <NuspecFile>DiscordRPC.nuspec</NuspecFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -11,7 +11,6 @@
     <DeterministicSourcePaths>true</DeterministicSourcePaths>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

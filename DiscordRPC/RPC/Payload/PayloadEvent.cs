@@ -1,6 +1,6 @@
-﻿using DiscordRPC.Converters;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace DiscordRPC.RPC.Payload
 {
@@ -12,13 +12,14 @@ namespace DiscordRPC.RPC.Payload
 		/// <summary>
 		/// The data the server sent too us
 		/// </summary>
-		[JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-		public JObject Data { get; set; }
+		[JsonPropertyName("data")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+		public JsonObject Data { get; set; }
 
 		/// <summary>
 		/// The type of event the server sent
 		/// </summary>
-		[JsonProperty("evt"), JsonConverter(typeof(EnumSnakeCaseConverter))]
+		[JsonPropertyName("evt")]
 		public ServerEvent? Event { get; set; }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace DiscordRPC.RPC.Payload
         /// </summary>
         /// <param name="nonce"></param>
 		public EventPayload(long nonce) : base(nonce) { Data = null; }
-        
+
 		/// <summary>
 		/// Gets the object stored within the Data
 		/// </summary>
@@ -40,7 +41,7 @@ namespace DiscordRPC.RPC.Payload
 		public T GetObject<T>()
 		{
 			if (Data == null) return default(T);
-            return Data.ToObject<T>();
+            return Data.Deserialize<T>();
 		}
 
         /// <summary>
@@ -52,6 +53,6 @@ namespace DiscordRPC.RPC.Payload
 			return "Event " + base.ToString() + ", Event: " + (Event.HasValue ? Event.ToString() : "N/A");
 		}
 	}
-	
+
 
 }

@@ -1,5 +1,4 @@
-﻿using DiscordRPC.Converters;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace DiscordRPC.RPC.Payload
 {
@@ -11,13 +10,13 @@ namespace DiscordRPC.RPC.Payload
 		/// <summary>
 		/// The type of payload
 		/// </summary>
-		[JsonProperty("cmd"), JsonConverter(typeof(EnumSnakeCaseConverter))]
+		[JsonPropertyName("cmd")]
 		public Command Command { get; set; }
 
 		/// <summary>
 		/// A incremental value to help identify payloads
 		/// </summary>
-		[JsonProperty("nonce")]
+		[JsonPropertyName("nonce")]
 		public string Nonce { get; set; }
 
 		protected IPayload() { }

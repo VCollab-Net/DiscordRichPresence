@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DiscordRPC
 {
@@ -14,19 +10,19 @@ namespace DiscordRPC
 		/// <summary>
 		/// The Discord API endpoint that should be used.
 		/// </summary>
-		[JsonProperty("api_endpoint")]
+		[JsonPropertyName("api_endpoint")]
 		public string ApiEndpoint { get; set; }
 
 		/// <summary>
 		/// The CDN endpoint
 		/// </summary>
-		[JsonProperty("cdn_host")]
+		[JsonPropertyName("cdn_host")]
 		public string CdnHost { get; set; }
 
 		/// <summary>
-		/// The type of environment the connection on. Usually Production. 
+		/// The type of environment the connection on. Usually Production.
 		/// </summary>
-		[JsonProperty("environment")]
+		[JsonPropertyName("environment")]
 		public string Environment { get; set; }
 	}
 }

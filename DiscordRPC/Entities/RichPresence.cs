@@ -1,15 +1,14 @@
 using DiscordRPC.Exceptions;
 using DiscordRPC.Helper;
-using Newtonsoft.Json;
 using System;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace DiscordRPC
 {
     /// <summary>
     /// The base rich presence structure
     /// </summary>
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     [Serializable]
     public class BaseRichPresence
     {
@@ -17,7 +16,8 @@ namespace DiscordRPC
         /// The user's current <see cref="Party"/> status. For example, "Playing Solo" or "With Friends".
         /// <para>Max 128 characters</para>
         /// </summary>
-        [JsonProperty("state", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("state")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string State
         {
             get { return _state; }
@@ -35,7 +35,8 @@ namespace DiscordRPC
         /// URL that is linked to when clicking on the details text in the activity card.
         /// <para>Max 256 characters</para>
         /// </summary>
-        [JsonProperty("state_url", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("state_url")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string StateUrl
         {
             get { return _stateUrl; }
@@ -55,7 +56,8 @@ namespace DiscordRPC
         /// What the user is currently doing. For example, "Competitive - Total Mayhem".
         /// <para>Max 128 characters</para>
         /// </summary>
-        [JsonProperty("details", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("details")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Details
         {
             get { return _details; }
@@ -72,7 +74,8 @@ namespace DiscordRPC
         /// URL that is linked to when clicking on the details text in the activity card.
         /// <para>Max 256 characters</para>
         /// </summary>
-        [JsonProperty("details_url", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("details_url")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string DetailsUrl
         {
             get { return _detailsUrl; }
@@ -91,19 +94,22 @@ namespace DiscordRPC
         /// <summary>
         /// The time elapsed / remaining time data.
         /// </summary>
-        [JsonProperty("timestamps", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("timestamps")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Timestamps Timestamps { get; set; }
 
         /// <summary>
         /// The names of the images to use and the tooltips to give those images.
         /// </summary>
-        [JsonProperty("assets", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("assets")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Assets Assets { get; set; }
 
         /// <summary>
         /// The party the player is currently in. The <see cref="Party.ID"/> must be set for this to be included in the RichPresence update.
         /// </summary>
-        [JsonProperty("party", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("party")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Party Party { get; set; }
 
         /// <summary>
@@ -111,19 +117,20 @@ namespace DiscordRPC
         /// <para>To keep security on the up and up, Discord requires that you properly hash/encode/encrypt/put-a-padlock-on-and-swallow-the-key-but-wait-then-how-would-you-open-it your secrets.</para>
         /// <para>Visit the <see href="https://discordapp.com/developers/docs/rich-presence/how-to#secrets">Rich Presence How-To</see> for more information.</para>
         /// </summary>
-        [JsonProperty("secrets", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("secrets")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Secrets Secrets { get; set; }
 
         /// <summary>
         /// The activity type
         /// </summary>
-        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("type")]
         public ActivityType Type { get; set; }
 
         /// <summary>
         /// The display type for the status
         /// </summary>
-        [JsonProperty("status_display_type", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("status_display_type")]
         public StatusDisplayType StatusDisplay { get; set; }
 
         #region Has Checks
@@ -349,10 +356,11 @@ namespace DiscordRPC
     public sealed class RichPresence : BaseRichPresence
     {
         /// <summary>
-        /// The buttons to display in the presence. 
+        /// The buttons to display in the presence.
         /// <para>Max of 2</para>
         /// </summary>
-        [JsonProperty("buttons", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("buttons")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Button[] Buttons { get; set; }
 
         /// <summary>
@@ -501,7 +509,7 @@ namespace DiscordRPC
         #endregion
 
 
-        #region Cloning and Merging 
+        #region Cloning and Merging
 
         /// <summary>
         /// Clones the presence into a new instance. Used for thread safe writing and reading. This function will ignore properties if they are in a invalid state.
@@ -636,13 +644,13 @@ namespace DiscordRPC
         /// <summary>
         /// ID of the client
         /// </summary>
-        [JsonProperty("application_id")]
+        [JsonPropertyName("application_id")]
         public string ClientID { get; private set; }
 
         /// <summary>
         /// Name of the bot
         /// </summary>
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; private set; }
 
     }

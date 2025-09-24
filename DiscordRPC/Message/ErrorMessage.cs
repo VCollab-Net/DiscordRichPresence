@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace DiscordRPC.Message
 {
@@ -15,13 +15,13 @@ namespace DiscordRPC.Message
 		/// <summary>
 		/// The Discord error code.
 		/// </summary>
-		[JsonProperty("code")]
+		[JsonPropertyName("code")]
 		public ErrorCode Code { get; internal set; }
 
 		/// <summary>
 		/// The message associated with the error code.
 		/// </summary>
-		[JsonProperty("message")]
+		[JsonPropertyName("message")]
 		public string Message { get; internal set; }
 
 	}
@@ -54,7 +54,7 @@ namespace DiscordRPC.Message
 
 		///<summary>Invalid command was sent</summary>
 		InvalidCommand = 4002,
-		
+
 		/// <summary>Invalid event was sent </summary>
 		InvalidEvent = 4004,
 

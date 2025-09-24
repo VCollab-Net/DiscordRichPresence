@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace DiscordRPC.Message
 {
@@ -19,7 +15,7 @@ namespace DiscordRPC.Message
 		/// <summary>
 		/// The discord user that is requesting access.
 		/// </summary>
-		[JsonProperty("user")]
+		[JsonPropertyName("user")]
 		public User User { get; internal set; }
 	}
 }
