@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace DiscordRPC.IO
 {
@@ -44,7 +45,7 @@ namespace DiscordRPC.IO
 		/// </summary>
 		/// <param name="opcode">The opcode of the frame</param>
 		/// <param name="data">The data of the frame that will be serialized as JSON</param>
-		public PipeFrame(Opcode opcode, object data)
+		public PipeFrame(Opcode opcode, Handshake data)
 		{
 			//Set the opcode and a temp field for data
 			Opcode = opcode;
@@ -75,9 +76,9 @@ namespace DiscordRPC.IO
 		/// Serializes the object into json string then encodes it into <see cref="Data"/>.
 		/// </summary>
 		/// <param name="obj"></param>
-		public void SetObject(object obj)
+		public void SetObject<T>(T obj)
 		{
-			string json = JsonSerializer.Serialize(obj);
+			string json = JsonSerializer.Serialize(obj, JsonSourceGeneration.Default.GetTypeInfo(obj.GetType())!);
 			SetMessage(json);
 		}
 
@@ -86,7 +87,7 @@ namespace DiscordRPC.IO
 		/// </summary>
 		/// <param name="opcode"></param>
 		/// <param name="obj"></param>
-		public void SetObject(Opcode opcode, object obj)
+		public void SetObject<T>(Opcode opcode, T obj)
 		{
 			Opcode = opcode;
 			SetObject(obj);
@@ -100,7 +101,8 @@ namespace DiscordRPC.IO
 		public T GetObject<T>()
 		{
 			string json = GetMessage();
-			return JsonSerializer.Deserialize<T>(json);
+
+			return JsonSerializer.Deserialize(json, ((JsonTypeInfo<T>)JsonSourceGeneration.Default.GetTypeInfo(typeof(T)))!);
 		}
 
 		/// <summary>

@@ -19,10 +19,14 @@ namespace DiscordRPC.RPC.Commands
 
 		public IPayload PreparePayload(long nonce)
 		{
-			return new ArgumentPayload(this, nonce)
+			var payload = new ArgumentPayload(nonce)
 			{
 				Command = Accept ? Command.SendActivityJoinInvite : Command.CloseActivityJoinRequest
 			};
-		}
+
+            payload.SetObject(this);
+
+            return payload;
+        }
 	}
 }

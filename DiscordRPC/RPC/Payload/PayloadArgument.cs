@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 namespace DiscordRPC.RPC.Payload
 {
@@ -21,28 +22,27 @@ namespace DiscordRPC.RPC.Payload
 
 		public ArgumentPayload() { Arguments = null; }
 		public ArgumentPayload(long nonce) : base(nonce) { Arguments = null; }
-		public ArgumentPayload(object args, long nonce) : base(nonce)
-		{
-			SetObject(args);
-		}
 
 		/// <summary>
 		/// Sets the obejct stored within the data.
 		/// </summary>
 		/// <param name="obj"></param>
-		public void SetObject(object obj)
+		public void SetObject<TArgument>(TArgument obj)
 		{
-			Arguments = JsonSerializer.SerializeToNode(obj)!.AsObject();
+			Arguments = JsonSerializer.SerializeToNode(
+                obj,
+                ((JsonTypeInfo<TArgument>) JsonSourceGeneration.Default.GetTypeInfo(obj.GetType()))!
+            )!.AsObject();
 		}
 
 		/// <summary>
 		/// Gets the object stored within the Data
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
+		/// <typeparam name="TArgument"></typeparam>
 		/// <returns></returns>
-		public T GetObject<T>()
+		public TArgument GetObject<TArgument>()
 		{
-			return Arguments.Deserialize<T>();
+			return Arguments.Deserialize(((JsonTypeInfo<TArgument>) JsonSourceGeneration.Default.GetTypeInfo(typeof(TArgument)))!);
 		}
 
 		public override string ToString()

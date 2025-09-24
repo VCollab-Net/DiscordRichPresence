@@ -19,10 +19,14 @@ namespace DiscordRPC.RPC.Commands
 
 		public IPayload PreparePayload(long nonce)
 		{
-			return new ArgumentPayload(this, nonce)
+			var payload = new ArgumentPayload(nonce)
 			{
 				Command = Command.SetActivity
 			};
-		}
+
+            payload.SetObject(this);
+
+            return payload;
+        }
 	}
 }

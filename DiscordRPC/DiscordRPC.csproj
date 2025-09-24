@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <NuspecFile>DiscordRPC.nuspec</NuspecFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -9,11 +8,42 @@
     <NoWin32Manifest>true</NoWin32Manifest>
     <Deterministic>true</Deterministic>
     <DeterministicSourcePaths>true</DeterministicSourcePaths>
+    <IsTrimmable>true</IsTrimmable>
+
+    <!-- NuGet package metadata -->
+    <PackageId>VCollab.DiscordRichPresence</PackageId>
+    <Version>1.7.0.0</Version>
+    <Authors>Eveldee</Authors>
+    <Company>VCollab</Company>
+    <Summary>Discord Rich Presence for your .NET project</Summary>
+    <Description>
+    A .NET implementation of Discord's Rich Presence functionality. This library supports all features of the Rich Presence that the official C++ library supports, plus a few extra.
+
+"Players love to show off what they are playing with Discord's status feature. With Rich Presence you can add beautiful art and detailed information to show off your game even more. This lets players know what their friends are doing, so they can decide to ask to join in and play together."
+  - Discord
+
+This is an unoffical, non-discord supported library.
+    </Description>
+    <PackageTags>Discord;Rich;Presence;RPC;Discord-RPC</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/VCollab-Net/DiscordRichPresence</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+    <!-- Output NuGet package to solution-level folder -->
+    <PackageOutputPath>$(SolutionDir)nupkgs</PackageOutputPath>
+
+    <!-- Include symbols for debugging -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0.0" PrivateAssets="All" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
+
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="/"/>
   </ItemGroup>
 </Project>

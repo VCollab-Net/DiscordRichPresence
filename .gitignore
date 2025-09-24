@@ -299,3 +299,4 @@ Thumbs.db
 # Docfx generation
 docs/
 _site/
+DiscordRPC/nupkgs

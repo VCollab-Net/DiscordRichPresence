@@ -57,7 +57,7 @@ namespace DiscordRPC
 		[JsonPropertyName("size")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonInclude]
-		private int[] _size
+		internal int[] _size
 		{
 			get
 			{

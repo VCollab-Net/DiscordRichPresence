@@ -2,7 +2,10 @@
 
 namespace DiscordRPC.IO
 {
-	internal class Handshake
+	/// <summary>
+	///
+	/// </summary>
+	public class Handshake
 	{
 		/// <summary>
 		/// Version of the IPC API we are using

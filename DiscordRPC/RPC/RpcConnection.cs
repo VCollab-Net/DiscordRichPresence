@@ -387,6 +387,7 @@ namespace DiscordRPC.RPC
 										{
 											Logger.Error("Failed to process event! {0}", e.Message);
 											Logger.Error("Data: {0}", frame.Message);
+                                            Logger.Error(e.StackTrace);
 										}
 
 										break;

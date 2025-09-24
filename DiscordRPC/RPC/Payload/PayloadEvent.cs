@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 namespace DiscordRPC.RPC.Payload
 {
@@ -40,8 +41,8 @@ namespace DiscordRPC.RPC.Payload
 		/// <returns></returns>
 		public T GetObject<T>()
 		{
-			if (Data == null) return default(T);
-            return Data.Deserialize<T>();
+			if (Data == null) return default;
+            return Data.Deserialize(((JsonTypeInfo<T>) JsonSourceGeneration.Default.GetTypeInfo(typeof(T)))!);
 		}
 
         /// <summary>
